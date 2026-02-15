@@ -1,33 +1,35 @@
-correct_username = "admin"
-correct_password = "1234"
+let correctUsername = "admin";
+let correctPassword = "1234";
 
-# Maximum attempts
-max_attempts = 6
-attempt = 0
+let attempts = 0;
+let maxAttempts = 6;
 
-while attempt < max_attempts:
-    print("\nLogin System")
-    
-    username = input("Enter username: ")
-    password = input("Enter password: ")
+function login() {
+    let user = document.getElementById("username");
+    let pass = document.getElementById("password");
+    let message = document.getElementById("message");
 
-    # Check username first
-    if username == correct_username:
-        
-        # Nested if for password
-        if password == correct_password:
-            print("✅ Login successful! Welcome.")
-            break
-        else:
-            print("❌ Incorrect password.")
-    
-    else:
-        print("❌ Incorrect username.")
+    if (attempts >= maxAttempts) {
+        message.innerHTML = "🚫 Too many attempts. Access locked.";
+        user.disabled = true;
+        pass.disabled = true;
+        return;
+    }
 
-    attempt += 1
-    remaining = max_attempts - attempt
-    print(f"Attempts remaining: {remaining}")
+    if (user.value === correctUsername && pass.value === correctPassword) {
+        message.innerHTML = "✅ Login successful!";
+        message.style.color = "green";
+    } else {
+        attempts++;
+        let remaining = maxAttempts - attempts;
 
-# If attempts are used up
-if attempt == max_attempts:
-    print("\n🚫 Too many failed attempts. Access locked.")
+        message.innerHTML = "❌ Incorrect. Attempts left: " + remaining;
+        message.style.color = "red";
+
+        if (attempts >= maxAttempts) {
+            user.disabled = true;
+            pass.disabled = true;
+            message.innerHTML = "🚫 Too many attempts. Access locked.";
+        }
+    }
+}
