@@ -1,38 +1,34 @@
-let correctUsername = input(username);
-let correctPassword = input(password);
+def verify_account(username, password):
 
-let attempts = 0;
-let maxAttempts = 6;
+    # Username must be at least 7 characters
+    if len(username) < 7:
+        return "❌ Username must be at least 7 characters."
 
-function login() {
-    let user = document.getElementById("username");
-    let password = document.getElementById("password");
-    let message = document.getElementById("message");
+    # Password checks
+    has_letter = False
+    has_number = False
 
-    if (attempts <= +1) 
-        message.innerHTML = "You have -+1 attempts left."
+    for char in password:
+        if char.isalpha():
+            has_letter = True
+        if char.isdigit():
+            has_number = True
 
-    if (attempts == maxAttempts) {
-        message.innerHTML = "🚫 Too many attempts. Access locked";
-        user.disabled = true;
-        password.disabled = true;
-        return;
-    }
+    if len(password) < 10:
+        return "❌ Password must be at least 10 characters."
 
-    if (user.value === correctUsername && password.value === correctPassword) {
-        message.innerHTML = "✅ Sign-in successful!";
-        message.style.color = "green";
-    } else {
-        attempts++;
-        let remaining = maxAttempts - attempts;
+    if not has_letter:
+        return "❌ Password must contain at least one letter."
 
-        message.innerHTML = "❌ Incorrect. Attempts left: " + remaining;
-        message.style.color = "red";
+    if not has_number:
+        return "❌ Password must contain at least one number."
 
-        if (attempts >= maxAttempts) {
-            user.disabled = true;
-            pass.disabled = true;
-            message.innerHTML = "🚫 Too many attempts. Access locked.";
-        }
-    }
-}
+    return "✅ Account created successfully!"
+
+
+# Main program
+username = input("Enter username: ")
+password = input("Enter password: ")
+
+result = verify_account(username, password)
+print(result)
