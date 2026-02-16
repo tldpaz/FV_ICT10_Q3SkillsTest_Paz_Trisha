@@ -1,23 +1,26 @@
-let correctUsername = "admin";
-let correctPassword = "1234";
+let correctUsername = input(username);
+let correctPassword = input(password);
 
 let attempts = 0;
 let maxAttempts = 6;
 
 function login() {
     let user = document.getElementById("username");
-    let pass = document.getElementById("password");
+    let password = document.getElementById("password");
     let message = document.getElementById("message");
 
-    if (attempts >= maxAttempts) {
-        message.innerHTML = "🚫 Too many attempts. Access locked.";
+    if (attempts <= +1) 
+        message.innerHTML = "You have -+1 attempts left."
+
+    if (attempts == maxAttempts) {
+        message.innerHTML = "🚫 Too many attempts. Access locked";
         user.disabled = true;
-        pass.disabled = true;
+        password.disabled = true;
         return;
     }
 
-    if (user.value === correctUsername && pass.value === correctPassword) {
-        message.innerHTML = "✅ Login successful!";
+    if (user.value === correctUsername && password.value === correctPassword) {
+        message.innerHTML = "✅ Sign-in successful!";
         message.style.color = "green";
     } else {
         attempts++;
